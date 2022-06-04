@@ -1,0 +1,54 @@
+/*My will is to set the entire css content as important*/
+
+.playbackButton {
+    position: absolute !important;
+    top: 5px;
+    right: 5px;
+    
+    font-size: 14px;
+    
+    min-width: 60px;
+    border-radius: 5px;
+    
+    background-color: rgba(255, 255, 255, .4);
+
+    display: flex !important;
+    flex-direction: row !important;
+
+    /* z-index: 1000; */
+    opacity: 50%;
+
+}
+
+.playbackButton > *{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+
+    padding: 2px !important;
+}
+
+.playbackSpeedButton{
+    padding: 2px;
+}
+
+.playbackSpeedButton:hover{
+    cursor: pointer;
+}
+
+.playbackSpeedText{
+    min-height: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .64);
+    color: rgb(255, 255, 255);
+    flex: 1;
+    padding: 5px;
+}
+
+
+/* this undoes what sets story video controls off */
+video::-webkit-media-controls { 
+    display: flex !important;  
+}
+
