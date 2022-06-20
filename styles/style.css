@@ -15,8 +15,8 @@
     display: flex !important;
     flex-direction: row !important;
 
-    /* z-index: 1000; */
-    opacity: 50% !important;
+    z-index: 1000 !important;
+    opacity: 70% !important;
 
 }
 
@@ -33,11 +33,11 @@
     padding: 2px;
 }
 
-/* .playbackSpeedButton:hover{ */
-/*     cursor: pointer; */
-/*     background-color: #ffffff; */
-/*     border-radius: 5px; */
-/* } */
+.playbackSpeedButton:hover{
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
 
 .playbackSpeedText{
     min-height: 100%;

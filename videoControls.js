@@ -128,33 +128,27 @@ function setPlaybackSpeedControllers(video, target, isStoryPage){
 
     setPlaybackSpeedChangeListener.call(video);
 
-
-    if(!isStoryPage){
-        target.appendChild(playbackButton);
-        video.hasSpeedControllers = true; // custom flag
-    }
-
+    target.appendChild(playbackButton);
+    
 
     //june 3
-    console.log(video.hasSpeedControllers);
-    
-    if(isStoryPage && video.hasSpeedControllers != true){
+    if(isStoryPage){
         const MenuButton = document.querySelector('[aria-label="Menu"]');
-        let ButtonsHolder;
-        for(let el = MenuButton; el !== video && el.contains(video) == false && el != document && el != null; el = el.parentElement){
-            if(el.querySelectorAll("button").length == 3){
-                playbackButton.style.top = `${el.getBoundingClientRect().height}px`;
-                ButtonsHolder = el;
-                break;
-            }
-        }
-        if(!ButtonsHolder) return;
 
-        ButtonsHolder.appendChild(playbackButton);
-        video.hasSpeedControllers = true; // custom 
-        console.log(video.hasSpeedControllers);
+        const VideoButtonBoundingClientRect = video.getBoundingClientRect();
+        const MenuButtonBoundingClientRect = MenuButton.getBoundingClientRect();
 
+        const PlaybackButtonRightOffSet = (VideoButtonBoundingClientRect.x + VideoButtonBoundingClientRect.width ) - (MenuButtonBoundingClientRect.x + MenuButtonBoundingClientRect.width);
+
+        const PlaybackButtonTopOffSet = MenuButtonBoundingClientRect.y + (MenuButtonBoundingClientRect.height );
+
+        playbackButton.style = `top: ${PlaybackButtonTopOffSet}px; right: ${PlaybackButtonRightOffSet}px; z-index: 10` ;
+        
     }
+    
+
+    //story videos arent saved in cache so setting this flag produces no effect on them
+    video.hasSpeedControllers = true; // custom flag
     
 
 }
