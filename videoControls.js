@@ -106,13 +106,11 @@ function setPlaybackSpeedChangeListener(){
 function setPlaybackSpeedControllers(video, target, isStoryPage){
 
     const playbackButton = document.createElement("div")
-
     const playbackSpeedUpButton = document.createElement("div");
     const playbackSpeedText = document.createElement("div");
     const playbackSpeedDownButton = document.createElement("div");
 
     playbackButton.className = "playbackButton"
-
     playbackSpeedUpButton.className = "playbackSpeedButton playbackSpeedUpButton";
     playbackSpeedText.className = "playbackSpeedText";
     playbackSpeedDownButton.className = "playbackSpeedButton playbackSpeedDownButton";
@@ -130,26 +128,35 @@ function setPlaybackSpeedControllers(video, target, isStoryPage){
 
     setPlaybackSpeedChangeListener.call(video);
 
-    target.appendChild(playbackButton);
+
+    if(!isStoryPage){
+        target.appendChild(playbackButton);
+        video.hasSpeedControllers = true; // custom flag
+    }
 
 
     //june 3
-    if(isStoryPage){
+    console.log(video.hasSpeedControllers);
+    
+    if(isStoryPage && video.hasSpeedControllers != true){
         const MenuButton = document.querySelector('[aria-label="Menu"]');
+        let ButtonsHolder;
+        for(let el = MenuButton; el !== video && el.contains(video) == false && el != document && el != null; el = el.parentElement){
+            if(el.querySelectorAll("button").length == 3){
+                playbackButton.style.top = `${el.getBoundingClientRect().height}px`;
+                ButtonsHolder = el;
+                break;
+            }
+        }
+        if(!ButtonsHolder) return;
 
-        const VideoButtonBoundingClientRect = video.getBoundingClientRect();
-        const MenuButtonBoundingClientRect = MenuButton.getBoundingClientRect();
+        ButtonsHolder.appendChild(playbackButton);
+        video.hasSpeedControllers = true; // custom 
+        console.log(video.hasSpeedControllers);
 
-        const PlaybackButtonRightOffSet = (VideoButtonBoundingClientRect.x + VideoButtonBoundingClientRect.width ) - (MenuButtonBoundingClientRect.x + MenuButtonBoundingClientRect.width);
-
-        const PlaybackButtonTopOffSet = MenuButtonBoundingClientRect.y + (MenuButtonBoundingClientRect.height );
-
-        playbackButton.style = `top: ${PlaybackButtonTopOffSet}px; right: ${PlaybackButtonRightOffSet}px; z-index: 10` ;
-        
     }
     
 
-    video.hasSpeedControllers = true; // custom flag
 }
 
 
@@ -245,12 +252,18 @@ function adjustStoryReplyButton(video){
 function queryVideos(){
     document.querySelectorAll("video").forEach( (video) => {
 
-        const isStoryPage = window.location.href.match(/.*instagram.com\/stories/);
+        const isStoryPage = window.location.href.match(/^.*instagram\.com\/stories\/.*/);
+        const isHighlight = window.location.href.match(/.*instagram.com\/stories\/highlights\/.*/);
         
         //Story posts be like
         if(isStoryPage && video.querySelector("source") && video.storyConfigSet != true){
             removeExtraStoryLayer(video);
-            adjustStoryReplyButton(video);
+
+            if(!isHighlight){
+                adjustStoryReplyButton(video);
+                console.log("Not an highlight");
+            }
+
             video.storyConfigSet = true;
         }
         video.playbackRate = sessionStorage.getItem(SS_KEY);
