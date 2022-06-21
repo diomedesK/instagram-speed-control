@@ -1,3 +1,6 @@
+/* Make sure to use Instagram in ENGLISH mf*/
+
+
 "use strict";
 
 //GLOBAL CONSTANTS && VARIABLES
