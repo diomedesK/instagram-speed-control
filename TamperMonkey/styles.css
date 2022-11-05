@@ -1,0 +1,48 @@
+
+video+[data-instancekey]>[data-visualcompletion]{
+    display:none !important;
+}
+
+._aato._ab1k._ab1l [aria-label="Control"]{
+    display:none;
+}
+
+._aato._ab1k._ab1l [aria-label="Toggle audio"]{
+    margin-bottom: 70px;
+    opacity: 20%;
+}
+
+
+._aato._ab1k._ab1l [aria-label="Toggle audio"]:hover{
+    display: block;
+    opacity: 100%;
+    
+}
+
+
+section ._ac0a ._ab8w._ab94._ab99._ab9f._ab9k._ab9p._abcm{
+    margin-bottom: 100px;
+    opacity: 10%;
+    transition-duration: 200ms;
+}
+
+section ._ac0a ._ab8w._ab94._ab99._ab9f._ab9k._ab9p._abcm:hover{
+    opacity: 100%;
+}
+
+._aato._ab1k._ab1l ._aakh{
+    display:none;
+}
+
+.pb-display{
+    position: absolute;
+    right: 10px;
+    color: #fff;
+    margin-top: 5%;
+    font-size: xx-large;
+    
+    display: none;
+
+    -webkit-text-stroke: 1px #000;
+}
+
