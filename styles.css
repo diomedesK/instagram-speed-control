@@ -1,6 +1,5 @@
-
 video+[data-instancekey]>[data-visualcompletion]{
-    display:none !important;
+    pointer-events: none;
 }
 
 ._aato._ab1k._ab1l [aria-label="Control"]{
@@ -46,3 +45,6 @@ section ._ac0a ._ab8w._ab94._ab99._ab9f._ab9k._ab9p._abcm:hover{
     -webkit-text-stroke: 1px #000;
 }
 
+button[aria-label="Toggle audio"]{
+    margin-bottom: 2rem;
+}
