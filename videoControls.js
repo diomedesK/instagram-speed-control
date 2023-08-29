@@ -1,20 +1,36 @@
 // ==UserScript==
-// @name         Speed
+// @name         Instagram/TikTok speed controls
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
-// @author       Dio
+// @description  A script that enables speed controls by pressing - and = keys for Instagram and TikTok
+// @author       You
 // @match        *://*.instagram.com/*
+// @match        *://*.tiktok.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=instagram.com
 // @grant        none
 // ==/UserScript==
 
-/* coringuei totalmente foda-se, o intagram fica atualizando, nao tem como prever.
- * AGORA VAI SER SIMPLES PORRA*/
 
-var PLAYBACK_RATE = 2;
+var _PB_STYLE = `
+    position: absolute;
+    right: 10px;
+    color: #fff;
+    margin-top: 5%;
+    font-size: xx-large;
+    display: none;
+
+    -webkit-text-stroke: 1px #000;
+`
+
+var PLAYBACK_RATE = 1;
+var CURRENT_DOMAIN;
+
 const PLAYBACK_DISPLAYS = [];
 const TOUTS = [];
+const DOMAINS = {
+    instagram: "INSTAGRAM",
+    tiktok: "TIKTOK"
+}
 
 function handleKeyboard(e){
     switch (e.code){
@@ -27,9 +43,14 @@ function handleKeyboard(e){
     }
 }
 
+
+
 function queryVideos(){
     document.querySelectorAll("video").forEach( (video) => {
-        if (!video.controls) video.controls = true;
+        if( CURRENT_DOMAIN === DOMAINS.instagram && !video.controls){
+            video.controls = true;
+        }
+
         if (!video.paused){
             video.playbackRate = PLAYBACK_RATE;
         }
@@ -39,10 +60,11 @@ function queryVideos(){
             pb.innerText = PLAYBACK_RATE;
             pb.className = "pb-display";
             video.parentElement.prepend(pb);
+
+            pb.style = _PB_STYLE;
             PLAYBACK_DISPLAYS.push(pb);
 
             video.addEventListener("ratechange", (e) => {
-                console.log(video.playbackRate);
                 PLAYBACK_RATE = video.playbackRate;
 
                 PLAYBACK_DISPLAYS.forEach( (dp) => {
@@ -68,9 +90,13 @@ function queryVideos(){
 
 (function() {
     'use strict';
+    let currentURL = new URL(window.location.href)
+    if(currentURL.host === "www.tiktok.com"){
+        CURRENT_DOMAIN = DOMAINS.tiktok;
+    } else if (currentURL.host === "www.instagram.com"){
+        CURRENT_DOMAIN = DOMAINS.instagram;
+    }
 
     setInterval( ( () => queryVideos() ) , 1000/4 )
     window.addEventListener("keydown", handleKeyboard);
-
-    // Your code here...
 })();

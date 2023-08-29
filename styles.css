@@ -33,18 +33,6 @@ section ._ac0a ._ab8w._ab94._ab99._ab9f._ab9k._ab9p._abcm:hover{
     display:none;
 }
 
-.pb-display{
-    position: absolute;
-    right: 10px;
-    color: #fff;
-    margin-top: 5%;
-    font-size: xx-large;
-    
-    display: none;
-
-    -webkit-text-stroke: 1px #000;
-}
-
 button[aria-label="Toggle audio"]{
     margin-bottom: 2rem;
 }
